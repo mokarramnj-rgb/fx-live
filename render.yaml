@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fx-live
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.mjs
+    autoDeploy: true
+    envVars:
+      - key: APP_PASSWORD
+        sync: false

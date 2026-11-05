@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="dark" />
+<title>FX Live</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0d12'/%3E%3Cpath d='M7 22 13 14l4 4 8-9' stroke='%232dd4a0' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="bar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 17.2 9.2 11l3.4 3.4L20 6.4" stroke="url(#lg)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14.8 6.4H20v5.2" stroke="url(#lg)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="lg" x1="4" y1="18" x2="20" y2="6" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#2dd4a0"/><stop offset="1" stop-color="#7aa2ff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-name">FX<span>LIVE</span></div>
+    </div>
+
+    <div class="pairbar">
+      <div class="pairs" id="pairs" aria-label="Instruments"></div>
+      <button class="add-btn" id="addBtn" type="button" aria-label="Add instrument" title="Add instrument">
+        <svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="grow"></div>
+
+    <div class="tf-menu" id="tfMenu">
+      <button class="tf-trigger" id="tfTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Timeframe">
+        <span id="tfLabel">1M</span>
+        <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1.2 5 5l4-3.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="tf-pop" id="tfPop" role="listbox" aria-label="Timeframe" hidden></div>
+    </div>
+
+    <div class="status" id="status" data-state="connecting">
+      <span class="pulse"><i></i></span>
+      <span class="status-text" id="statusText">SYNC</span>
+      <span class="status-age" id="statusAge"></span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <div class="pair-name" id="pairName">XAU / USD</div>
+      <div class="price-line">
+        <div class="price" id="price"><span class="price-int">—</span><span class="price-frac"></span></div>
+        <div class="chg" id="chg" data-dir="flat">—</div>
+        <div class="sessions" id="sessions" role="list" aria-label="Forex sessions"></div>
+      </div>
+      <div class="under">
+        <div class="rangebar" id="rangebar" aria-hidden="true">
+          <div class="range-fill" id="rangeFill"></div>
+          <div class="range-dot" id="rangeDot"></div>
+        </div>
+        <div class="range-label">DAY RANGE</div>
+      </div>
+      <div class="depth">
+        <span>OPEN <b id="open">—</b></span>
+        <span>PREV <b id="prev">—</b></span>
+        <span>VOL <b id="vol">—</b></span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span>DAY HIGH</span>
+        <b id="statHigh">—</b>
+      </div>
+      <div class="stat">
+        <span>DAY LOW</span>
+        <b id="statLow">—</b>
+      </div>
+      <div class="stat">
+        <span>DAY RANGE</span>
+        <b id="statRange">—</b>
+      </div>
+    </div>
+  </section>
+
+  <section class="chart-card" id="chartCard">
+    <canvas id="chart"></canvas>
+    <div class="chart-zoom" aria-label="Chart zoom">
+      <button class="zoom-btn" id="zoomOut" type="button" title="Zoom out · more candles" aria-label="Zoom out">−</button>
+      <span class="zoom-count" id="zoomCount" title="Visible candles">20</span>
+      <button class="zoom-btn" id="zoomIn" type="button" title="Zoom in · fewer candles" aria-label="Zoom in">+</button>
+    </div>
+    <div class="loader" id="loader">
+      <span class="spinner"></span>
+      <span id="loaderText">loading market data</span>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span class="src" id="source">FXCM LIVE · CNBC STATS</span>
+    <span class="dot-sep"></span>
+    <span id="updated">—</span>
+    <div class="grow"></div>
+    <span class="keys"><b>1–4</b> pairs</span>
+    <span class="keys"><b>[ ]</b> timeframe</span>
+    <a class="lock" id="lock" href="/logout" title="Lock chart" hidden>LOCK</a>
+    <span class="clock" id="clock">--:--:-- UTC</span>
+  </footer>
+
+</div>
+
+<div class="add-pop" id="addPop" hidden>
+  <div class="add-head">
+    <span>ADD INSTRUMENT</span>
+    <button class="add-close" id="addClose" type="button" aria-label="Close">×</button>
+  </div>
+  <div class="add-list" id="addList"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "fx-live",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live forex, metals, crypto and energy chart",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}

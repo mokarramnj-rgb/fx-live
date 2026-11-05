@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="dark" />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="theme-color" content="#090b0f" />
+<title>FX Live — Sign in</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0d12'/%3E%3Cpath d='M7 22 13 14l4 4 8-9' stroke='%232dd4a0' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<style>
+  :root {
+    --bg: #090b0f;
+    --card: #0e1218;
+    --line: #1b212c;
+    --line-2: #2a3340;
+    --text: #e9eef6;
+    --muted: #8b96a5;
+    --dim: #55606f;
+    --up: #2dd4a0;
+    --down: #ff5d78;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    color: var(--text);
+    background:
+      radial-gradient(900px 620px at 50% -12%, rgba(122, 162, 255, 0.10), transparent 62%),
+      radial-gradient(760px 520px at 50% 118%, rgba(45, 212, 160, 0.07), transparent 62%),
+      var(--bg);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .shell { width: 100%; max-width: 344px; }
+
+  .card {
+    position: relative;
+    padding: 26px 24px 22px;
+    border: 1px solid var(--line-2);
+    border-radius: 16px;
+    background: linear-gradient(180deg, #10141b 0%, var(--card) 100%);
+    box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 80% at 50% 0%, rgba(122, 162, 255, 0.07), transparent 60%);
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line-2);
+    border-radius: 9px;
+    background: #0b0e13;
+  }
+
+  .logo svg { width: 19px; height: 19px; }
+
+  .brand-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #d4dbe6;
+  }
+
+  .brand-name span { color: var(--up); }
+
+  h1 {
+    margin: 0 0 5px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .sub {
+    margin: 0 0 20px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 7px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--dim);
+  }
+
+  input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--line-2);
+    border-radius: 9px;
+    background: #0a0d12;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    outline: none;
+    transition: border-color 0.16s, box-shadow 0.16s;
+  }
+
+  input:focus {
+    border-color: #3d7a68;
+    box-shadow: 0 0 0 3px rgba(45, 212, 160, 0.12);
+  }
+
+  button {
+    width: 100%;
+    height: 42px;
+    margin-top: 12px;
+    border: 1px solid rgba(45, 212, 160, 0.35);
+    border-radius: 9px;
+    background: linear-gradient(180deg, rgba(45, 212, 160, 0.18), rgba(45, 212, 160, 0.10));
+    color: #b8f5e2;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.16s, border-color 0.16s, color 0.16s, transform 0.08s;
+  }
+
+  button:hover { background: rgba(45, 212, 160, 0.22); border-color: rgba(45, 212, 160, 0.55); color: #e6fff8; }
+  button:active { transform: scale(0.99); }
+  button:disabled { opacity: 0.55; cursor: default; }
+
+  .err {
+    min-height: 16px;
+    margin: 10px 0 0;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--down);
+  }
+
+  .foot {
+    margin: 16px 0 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    color: #454f5d;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<main class="shell">
+  <section class="card">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 17.2 9.2 11l3.4 3.4L20 6.4" stroke="#2dd4a0" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14.8 6.4H20v5.2" stroke="#7aa2ff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="brand-name">FX<span>LIVE</span></div>
+    </div>
+
+    <h1>Sign in</h1>
+    <p class="sub">This chart is password protected.</p>
+
+    <form id="form" novalidate>
+      <label for="pw">Password</label>
+      <input id="pw" name="password" type="password" autocomplete="current-password" spellcheck="false" autofocus required />
+      <button id="btn" type="submit">Unlock chart</button>
+      <p class="err" id="err" role="alert" aria-live="polite"></p>
+    </form>
+  </section>
+  <p class="foot">FXCM live rates · CNBC reference data</p>
+</main>
+
+<script>
+(() => {
+  const form = document.getElementById('form');
+  const pw = document.getElementById('pw');
+  const btn = document.getElementById('btn');
+  const err = document.getElementById('err');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!pw.value) return;
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Checking…';
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ password: pw.value }),
+      });
+
+      if (res.ok) {
+        location.replace('/');
+        return;
+      }
+
+      if (res.status === 429) err.textContent = 'Too many attempts. Try again in a few minutes.';
+      else if (res.status === 401) err.textContent = 'Wrong password.';
+      else err.textContent = 'Unable to sign in. Try again.';
+      pw.select();
+    } catch {
+      err.textContent = 'Network error. Try again.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Unlock chart';
+  });
+})();
+</script>
+</body>
+</html>
